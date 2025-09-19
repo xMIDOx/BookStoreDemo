@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>{{ isEdit ? 'Edit Book' : 'Add Book' }}</h2>
+  <form (ngSubmit)="saveBook()" #bookForm="ngForm">
+    <div class="mb-3">
+      <label>Title</label>
+      <input [(ngModel)]="book.title" name="title" class="form-control" required />
+    </div>
+    <div class="mb-3">
+      <label>ISBN</label>
+      <input [(ngModel)]="book.isbn" name="isbn" class="form-control" required />
+    </div>
+    <div class="mb-3">
+      <label>Year</label>
+      <input type="number" [(ngModel)]="book.year" name="year" class="form-control" required />
+    </div>
+    <div class="mb-3">
+      <label>Price</label>
+      <input type="number" [(ngModel)]="book.price" name="price" class="form-control" required />
+    </div>
+    <div class="mb-3">
+      <label>Author</label>
+      <select [(ngModel)]="book.authorId" name="authorId" class="form-select" required>
+        <option value="" disabled>Select author</option>
+        <option *ngFor="let author of authors" [value]="author.id">
+          {{ author.firstName }} {{ author.lastName }}
+        </option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-success">{{ isEdit ? 'Update' : 'Create' }}</button>
+  </form>
+</div>
