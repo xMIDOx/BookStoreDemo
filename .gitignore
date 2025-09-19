@@ -1,0 +1,19 @@
+# ===== .NET =====
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.log
+
+# ===== Angular =====
+node_modules/
+dist/
+.angular/
+.env
+
+# ===== OS/Editor files =====
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
