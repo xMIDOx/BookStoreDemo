@@ -1,19 +1,19 @@
-# ===== .NET =====
-bin/
-obj/
+# Visual Studio
+.vs/
 *.user
 *.suo
-*.cache
-*.log
+*.userosscache
+*.sln.docstates
 
-# ===== Angular =====
+# .NET build outputs
+bin/
+obj/
+
+# Angular / Node
 node_modules/
 dist/
-.angular/
-.env
+npm-debug.log
+package-lock.json
 
-# ===== OS/Editor files =====
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
+# Optional: environment files
+.env
