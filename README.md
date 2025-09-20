@@ -21,24 +21,24 @@ It demonstrates **Clean Architecture**, **best practices**, and a simple **Angul
 
 ## Project Structure
 
-BookLStore/
- ├── src/                        # Backend (.NET projects)
- │    ├── BookStore.API
- │    ├── BookStore.Application
- │    ├── BookStore.Domain
- │    └── BookStore.Infrastructure
- │
- ├── ui/                       # Frontend (Angular)
- │    └── BookStore.UI
- │         ├── src/
- │         ├── angular.json
- │         └── package.json
- │
- ├── tests/                    # Test projects
- │    └── BookStore.Tests
- │
- ├── BookStore.sln             # .NET solution
- └── README.md                 # instructions for running both
+BookStore.sln
+ ├── BookStore.Domain
+ │    ├── Entities/        (Book, Author)
+ │    ├── Exceptions/      (custom domain errors)
+ │    └── Strategies/      (IDiscountStrategy + implementations)
+ ├── BookStore.Application
+ │    ├── Interfaces/      (IBookService, IRepositories)
+ │    ├── Services/        (BookService, with validation & discount use)
+ │    ├── Books/           (CQRS folders: Queries, Commands with MediatR)
+ │    └── DTOs/            (BookDto, CreateBookDto, UpdateBookDto)
+ ├── BookStore.Infrastructure
+ │    └── Repositories/    (EF Core repositories for Book & Author)
+ ├── BookStore.API
+ │    ├── Controllers/     (BooksController – thin, uses MediatR)
+ │    └── Program.cs       (DI, Swagger, CORS, MediatR, Strategy config)
+ └── BookStore.UI (Angular)
+      ├── core/services/   (BookService, AuthorService – API calls)
+      └── features/books/  (BookList + BookForm standalone components)
  
  ## Setup Instructions
 
