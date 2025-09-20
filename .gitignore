@@ -1,0 +1,19 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# .NET build outputs
+bin/
+obj/
+
+# Angular / Node
+node_modules/
+dist/
+npm-debug.log
+package-lock.json
+
+# Optional: environment files
+.env
