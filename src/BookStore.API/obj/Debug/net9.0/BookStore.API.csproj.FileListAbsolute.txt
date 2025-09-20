@@ -170,3 +170,8 @@ C:\Users\Mohamed Mahmoud\Desktop\BookStoreDemo\src\BookStore.API\bin\Debug\net9.
 C:\Users\Mohamed Mahmoud\Desktop\BookStoreDemo\src\BookStore.API\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
 C:\Users\Mohamed Mahmoud\Desktop\BookStoreDemo\src\BookStore.API\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
 C:\Users\Mohamed Mahmoud\Desktop\BookStoreDemo\src\BookStore.API\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Mohamed Mahmoud\Desktop\BookStoreDemo\src\BookStore.API\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Mohamed Mahmoud\Desktop\BookStoreDemo\src\BookStore.API\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Mohamed Mahmoud\Desktop\BookStoreDemo\src\BookStore.API\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Mohamed Mahmoud\Desktop\BookStoreDemo\src\BookStore.API\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Mohamed Mahmoud\Desktop\BookStoreDemo\src\BookStore.API\obj\Debug\net9.0\BookStore.API.sourcelink.json

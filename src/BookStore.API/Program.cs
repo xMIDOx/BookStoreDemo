@@ -10,51 +10,76 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-
-
-builder.Services.AddScoped<IBookService, BookService>();
-builder.Services.AddScoped<IAuthorService, AuthorService>();
-
-builder.Services.AddScoped<IBookRepository, BookRepository>();
-builder.Services.AddScoped<IAuthorRepository, AuthoryRepository>();
-
-builder.Services.AddDbContext<BookStoreDBContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAngularClient",
-        policy =>
-        {
-            policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
-        });
-});
-builder.Services.AddControllers();
-builder.Services.AddAutoMapper(typeof(MappingProfile));
-builder.Services.AddSwaggerGen();
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAllBooksQuery).Assembly));
-builder.Services.AddScoped<IDiscountStrategy, SeasonalDiscountStrategy>();
-
-
+ConfigureServices(builder.Services, builder.Configuration);
 
 var app = builder.Build();
-app.UseCors("AllowAngularClient");
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-        c.RoutePrefix = string.Empty;
-    });
-}
 
-app.UseHttpsRedirection();
-app.UseMiddleware<ExceptionMiddleware>();
-app.UseAuthorization();
-app.MapControllers();
+ConfigureMiddleware(app);
+
 app.Run();
 
+void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+{
+    services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAngularClient", policy =>
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+    });
+    services.AddControllers();
+
+    services.AddOpenApi();
+    services.AddSwaggerGen();
+
+    services.AddDbContext<BookStoreDBContext>(options =>
+        options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
+
+    services.AddAutoMapper(typeof(MappingProfile));
+
+    services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAllBooksQuery).Assembly));
+
+    services.AddScoped<IBookService, BookService>();
+    services.AddScoped<IAuthorService, AuthorService>();
+
+    services.AddScoped<IBookRepository, BookRepository>();
+    services.AddScoped<IAuthorRepository, AuthoryRepository>();
+
+    services.AddScoped<IDiscountStrategy, SeasonalDiscountStrategy>();
+
+    services.AddAuthentication("Bearer")
+        .AddJwtBearer("Bearer", options =>
+        {
+            options.Authority = "https://demo.duendesoftware.com";
+            options.TokenValidationParameters.ValidateAudience = false;
+        });
+
+    services.AddAuthorization();
+}
+
+void ConfigureMiddleware(WebApplication app)
+{
+    app.UseCors("AllowAngularClient");
+
+    app.UseMiddleware<ExceptionMiddleware>();
+
+    app.UseHttpsRedirection();
+
+    app.UseAuthentication();
+    app.UseAuthorization();
+
+    if (app.Environment.IsDevelopment())
+    {
+        app.MapOpenApi();
+        app.UseSwagger();
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookStore API V1");
+            c.RoutePrefix = string.Empty;
+        });
+    }
+
+    app.MapControllers();
+}
